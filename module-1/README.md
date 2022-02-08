@@ -4,4 +4,4 @@
 - [chatbot](./chatbot)
 
 ### workshops
-[dealership](./dealership)
+- [dealership](./dealership)
