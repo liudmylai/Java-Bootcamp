@@ -2,3 +2,6 @@
 
 ### chalenges
 - [chatbot](./chatbot)
+
+### workshops
+- [dealership](./dealership)
