@@ -5,3 +5,4 @@
 
 ### workshops
 - [dealership](./dealership)
+- [dice](./dice)
