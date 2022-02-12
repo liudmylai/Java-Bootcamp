@@ -6,3 +6,4 @@
 ### workshops
 - [dealership](./dealership)
 - [dice](./dice)
+- [rockpaperscissors](./rockpaperscissors)
