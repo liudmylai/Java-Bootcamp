@@ -2,9 +2,10 @@
 
 ### chalenges
 - [chatbot](./chatbot)
+- [rockpaperscissors](./rockpaperscissors)
+- [blackjack](./blackjack)
 
 ### workshops
 - [dealership](./dealership)
 - [dice](./dice)
-- [rockpaperscissors](./rockpaperscissors)
 - [pokerito](./pokerito)
