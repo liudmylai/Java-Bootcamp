@@ -7,3 +7,4 @@
 - [dealership](./dealership)
 - [dice](./dice)
 - [rockpaperscissors](./rockpaperscissors)
+- [pokerito](./pokerito)
