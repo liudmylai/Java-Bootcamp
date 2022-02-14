@@ -9,3 +9,4 @@
 - [dealership](./dealership)
 - [dice](./dice)
 - [pokerito](./pokerito)
+- [javapedia](./javapedia)
