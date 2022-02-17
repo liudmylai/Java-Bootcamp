@@ -4,6 +4,7 @@
 - [chatbot](./chatbot)
 - [rockpaperscissors](./rockpaperscissors)
 - [blackjack](./blackjack)
+- [tictactoe](./tictactoe)
 
 ### workshops
 - [dealership](./dealership)
