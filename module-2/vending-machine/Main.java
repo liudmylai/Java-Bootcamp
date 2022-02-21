@@ -10,7 +10,7 @@ public class Main {
             { new Item("Fanta", 1.99, 2) , new Item("Barq's", 1.49, 2), new Item("A & W", 2.49, 3) },
             { new Item("Crush", 1.99, 2) , new Item("C-Cola", 1.49, 2), new Item("Berry", 2.49, 1) }
         };
-        
-
+        Machine machine = new Machine(items);
+     
     }
 }
