@@ -28,6 +28,9 @@ public class Machine {
      * - otherwise: returns false.
      */
     public boolean dispense(int row, int spot) {
+        if (this.items[row][spot].getQuantity() == 0) {
+            throw new IllegalArgumentException ("cannot dispense an item with quantity: 0");
+        }
         if (this.items[row][spot].getQuantity() > 0) {
             this.items[row][spot].setQuantity(this.items[row][spot].getQuantity() - 1);
             return true;
