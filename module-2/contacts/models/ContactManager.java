@@ -36,6 +36,9 @@ public class ContactManager {
      * 1. Removes the contact that matches the name passed in
      */
     public void removeContact(String name) {
+        if( contacts.isEmpty()) {
+            throw new IllegalStateException("Cannot remove from an empty list");
+        }
         for( int i=0; i < contacts.size(); i++) {
             if (contacts.get(i).getName().equals(name)) {
                 contacts.remove(i);

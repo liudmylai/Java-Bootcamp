@@ -1,26 +1,88 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.Scanner;
 
 import models.Contact;
 import models.ContactManager;
 
 public class Main {
+    static ContactManager manager = new ContactManager();
+
+    /**
+    * Name: loadContacts
+    * @param fileName (String)
+    * @throws FileNotFoundException
+    *
+    * Inside the function:
+    *    1. loads contacts from <fileName>.txt;
+    *    2. manager adds all contacts to the contacts list.
+    *        Hint: use scan.next to grab the next String separated by white space.
+    */
+    public static void loadContacts(String fileName) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner scanFile = new Scanner(fis);
+        while (scanFile.hasNextLine()) {
+            try {
+                Contact contact = new Contact(scanFile.next(), scanFile.next(),scanFile.next());
+                manager.addContact(contact);
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        scanFile.close();
+    }
+
+    /**
+    * Name: manageContacts
+    * Inside the function:
+    *   1. Starts a new instance of Scanner;
+    *   2. In an infinite loop, the user can choose to a) add or b) remove a contact c) exit.
+    *          case a: ask for the name, phone number and birthDate.
+    *          case b: ask who they'd like to remove.
+    *          case c: break the loop.
+    *   3. call close() from the Scanner object.
+    */
+    public static void manageContacts() {
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            System.out.println("Would you like to \n\ta) add another contact\n\tb) remove a contact \n\tc) exit");
+            String response = scan.nextLine();
+            if (response.equals("a")) {
+                System.out.print("\tName: ");
+                String name = scan.nextLine();
+                System.out.print("\tPhone Number: ");
+                String phoneNumber = scan.nextLine();
+                System.out.print("\tBirth Date: ");
+                String birthDate = scan.nextLine();
+                try {
+                    manager.addContact(new Contact(name, phoneNumber, birthDate));
+                } catch (ParseException e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    System.out.println("\n\nUPDATED CONTACTS\n\n" + manager);
+                }
+            } else if (response.equals("b")) {
+                System.out.println("\nWho would you like to remove?");
+                manager.removeContact(scan.nextLine());
+                System.out.println("\n\nUPDATED CONTACTS\n\n" + manager);
+            } else {
+                break;
+            }
+        }
+        scan.close();   
+    }    
 
     public static void main(String[] args) {
-        // Contact contact;
-        try {
-            // contact = new Contact("Dima", "513666666", "10/08/1980");
-            ContactManager manager = new ContactManager();
-            manager.addContact(new Contact("Ryan", "6135012424", "11/11/1992"));
-            manager.addContact(new Contact("Gio", "6477092344 ", "11/11/1993"));
-            manager.addContact(new Contact("Thomas ", "8192256979 ", "11/11/1994"));
-            manager.removeContact("Gio");
-            System.out.println(manager);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } finally {
-            System.out.println("Process Complete");
-        }
+         try {
+             loadContacts("contacts.txt");
+         } catch (FileNotFoundException e) {
+             System.out.println(e.getMessage());
+         } finally {
+             System.out.println("CONTACTS LOADED\n\n");
+             System.out.println(manager);
+         }
+         manageContacts();
 
     }
 }
