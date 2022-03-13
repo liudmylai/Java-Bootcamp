@@ -45,7 +45,7 @@ public class Contact {
 
     public void setPhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.isBlank() || phoneNumber.length() < 5) {
-            throw new IllegalArgumentException("phone number cannot be null/blank");
+            throw new IllegalArgumentException("phone number cannot be null/blank/less than 5 characters");
         }    
         this.phoneNumber = phoneNumber;
     }
@@ -95,7 +95,7 @@ public class Contact {
         }
         this.name = name;
         if (phoneNumber == null || phoneNumber.isBlank() || phoneNumber.length() < 5) {
-            throw new IllegalArgumentException("phone number cannot be null/blank");
+            throw new IllegalArgumentException("phone number cannot be null/blank/less than 5 characters");
         }
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
