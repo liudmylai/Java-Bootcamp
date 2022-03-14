@@ -70,13 +70,7 @@ public class Main {
                         System.out.println("\n\nUPDATED CONTACTS\n\n" + manager);
                     }
                 }
-                // try {
-                // manager.addContact(new Contact(name, phoneNumber, birthDate));
-                // } catch (ParseException e) {
-                // System.out.println(e.getMessage());
-                // } finally {
-                // System.out.println("\n\nUPDATED CONTACTS\n\n" + manager);
-                // }
+
             } else if (response.equals("b")) {
                 System.out.println("\nWho would you like to remove?");
                 manager.removeContact(scan.nextLine());
