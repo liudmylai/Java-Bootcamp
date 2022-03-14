@@ -7,8 +7,17 @@ public class Movie {
     private boolean isAvailable;
 
     public Movie(String name, String format, double rating) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException ("Name must contain a value");
+        }
         this.name = name;
+        if (!(format.equalsIgnoreCase("Blue-Ray") || format.equalsIgnoreCase("DVD"))) {
+            throw new IllegalArgumentException ("Format must be Blue-Ray or DVD");
+        }
         this.format = format;
+        if (rating < 0 || rating > 10) {
+            throw new IllegalArgumentException ("Invalid rating");
+        }
         this.rating = rating;
         this.isAvailable = true;
         setSellingPrice(format);
@@ -45,14 +54,23 @@ public class Movie {
     }
 
     public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException ("Name must contain a value");
+        }
         this.name = name;
     }
     public void setFormat(String format) {
+        if (!(format.equalsIgnoreCase("Blue-Ray") || format.equalsIgnoreCase("DVD"))) {
+            throw new IllegalArgumentException ("Format must be Blue-Ray or DVD");
+        }
         this.format = format;
         setSellingPrice(format);
         setRentalPrice(format);
     }
     public void setRating(double rating) {
+        if (rating < 0 || rating > 10) {
+            throw new IllegalArgumentException ("Invalid rating");
+        }
         this.rating = rating;
     }
     public void setIsAvailable(boolean isAvailable) {
