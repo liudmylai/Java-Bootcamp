@@ -1,3 +1,5 @@
+package models;
+
 public class Movie {
     private String name;
     private String format;
