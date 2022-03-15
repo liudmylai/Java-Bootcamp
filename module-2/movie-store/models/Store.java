@@ -10,11 +10,11 @@ public class Store {
     }
 
     public Movie getMovie(int index) {
-        return new Movie(movies.get(index));
+        return new Movie(this.movies.get(index));
     }
 
     public void setMovie(Movie movie, int index) {
-        movies.set(index, new Movie(movie));  
+        this.movies.set(index, new Movie(movie));  
     }
 
     /**
@@ -25,7 +25,7 @@ public class Store {
      * 1. Adds the movie to the ArrayList
      */
     public void addMovie(Movie movie) {
-        movies.add(new Movie(movie));
+        this.movies.add(new Movie(movie));
     }
  
     /**
@@ -41,18 +41,30 @@ public class Store {
      *   - return - Sets isAvailable equal to true for the  movie that matches the name passed in     
      */
     public void action(String name, String action) {
-        for (int i=0; i < movies.size(); i++) {
-            if (movies.get(i).getName().equals(name)) {
-                switch(action) {
+        if (movies.isEmpty()) {
+            throw new IllegalStateException("Store not in a valid state to perform action");
+        }
+        if (!(action.equalsIgnoreCase("sell") || action.equalsIgnoreCase("rent") || action.equalsIgnoreCase("return"))) {
+            throw new IllegalArgumentException("Action must be sell, rent or return");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or blank");
+        }
+        for (int i=0; i < this.movies.size(); i++) {
+            if (this.movies.get(i).getName().equals(name)) {
+                switch (action) {
                     case "sell": 
-                    movies.remove(i);
+                    if (!(movies.get(i).getIsAvailable())) {
+                        throw new IllegalStateException("Cannot sell movie that was rented out"); 
+                    }
+                    this.movies.remove(i);
                     break;
                     case "rent":
-                    movies.get(i).setIsAvailable(false);
+                    this.movies.get(i).setIsAvailable(false);
                     break;
                     case "return":
-                    movies.get(i).setIsAvailable(true);
-
+                    this.movies.get(i).setIsAvailable(true);
+                    break;
                 }
             } 
         }
@@ -60,8 +72,8 @@ public class Store {
 
     public String toString() {
         String temp = "";
-        for (int i=0; i < movies.size(); i++) {
-            temp += movies.get(i).toString();
+        for (int i=0; i < this.movies.size(); i++) {
+            temp += this.movies.get(i).toString();
             temp += "\n\n";
         }
         return temp;
