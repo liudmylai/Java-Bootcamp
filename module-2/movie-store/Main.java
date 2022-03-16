@@ -52,8 +52,16 @@ public class Main {
 
             System.out.print("Enter the name of the movie: ");
             String name = scanResponse.nextLine();
+            if(name.isBlank()) {
+                System.out.println("\n\nThe input you provided is not valid. Please try again\n");
+                continue;
+            }
             switch (response) {
                 case "a":
+                    if (!(store.getMovie(name).getIsAvailable())) {
+                        System.out.println("\n\n\n\nThe movie is not available for purchase. Please try again\n");
+                        continue;
+                    }
                     store.action(name, "sell");
                     break;
                 case "b":
