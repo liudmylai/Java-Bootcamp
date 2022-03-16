@@ -1,24 +1,82 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import models.*;
 
 public class Main {
-        public static void main(String[] args) {
-            // Movie movie = new Movie("Gilty", "DVD", 5);
-            // System.out.println(movie);
-            Store store = new Store();
-            Movie movie1 = new Movie("The Shawshank Redemption", "Blue-Ray", 9.2);
-            Movie movie2 = new Movie("The Godfather", "Blue-Ray", 9.1);
-            Movie movie3 = new Movie("The Godfather: Part II", "DVD", 9.0);
 
-            store.addMovie(movie1);
-            store.addMovie(movie2);
-            store.addMovie(movie3);
+    static Store store = new Store();
 
-            store.action("The Godfather", "sell");  
-            store.action("The Shawshank Redemption", "rent"); 
-            store.action("The Shawshank Redemption", "return"); 
-           
-            System.out.println(store);
-
-            
+    /**
+     * Name: loadMovies
+     * 
+     * @param fileName (String)
+     * @throws FileNotFoundException
+     * 
+     * Inside the function:
+     * 1. loads movies from <fileName>.txt
+     * 2. adds all movies to the store object's movie field
+     */
+    public static void loadMovies(String fileName) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner scan = new Scanner(fis);
+        while (scan.hasNextLine()) {
+            String[] data = scan.nextLine().split("--");
+            Movie movie = new Movie(data[0], data[1], Double.parseDouble(data[2]));
+            store.addMovie(movie);
         }
+        scan.close();
+    }
+
+    /**
+     * Name: manageMovies
+     * Inside the function:
+     * 1. Starts a new instance of Scanner
+     * 2. In an infinite loop, the user can choose to a) purchase or b) rent c) return.
+     *    case a: ask for the name and sell them the movie.
+     *    case b: ask for the name and rent them the movie.
+     *    case c: ask for the name and return the movie.
+     * 3. call close() from the Scanner object.
+     */
+    public static void manageMovies() {
+        Scanner scanResponse = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nWould you like to \n\ta) purchase\n\tb) rent \n\tc) return.");
+            String response = scanResponse.nextLine();
+
+            if (!(response.equals("a") || response.equals("b") || response.equals("c"))) {
+                scanResponse.close();
+                break;
+            }
+
+            System.out.print("Enter the name of the movie: ");
+            String name = scanResponse.nextLine();
+            switch (response) {
+                case "a":
+                    store.action(name, "sell");
+                    break;
+                case "b":
+                    store.action(name, "rent");
+                    break;
+                case "c":
+                    store.action(name, "return");
+                    break;
+            }
+            System.out.println("\n\nUPDATED MOVIES\n\n" + store);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            loadMovies("./movies.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("MOVIES LOADED\n\n" + store);
+        }
+
+        manageMovies();
+
+    }
 }
