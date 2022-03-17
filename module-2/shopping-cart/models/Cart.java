@@ -11,7 +11,7 @@ public class Cart {
     public Item getItem(int index) {
         return new Item(this.items.get(index));
     }
-    public void setItem(Item item, int index) {
+    public void setItem(int index, Item item) {
         this.items.set(index, new Item(item));
     }
      /**
@@ -54,16 +54,20 @@ public class Cart {
     *   4. Returns a String that resembles a receipt. See below.
     */
     public String checkOut() {
-        double subtotal = 0;
+        double[] measures = new double[3];
+        // double subtotal = 0;
         for (int i = 0; i < this.items.size(); i++) {
-            subtotal += this.items.get(i).getPrice();
+            measures[0] += this.items.get(i).getPrice();
+            // subtotal += this.items.get(i).getPrice();
         }
-        double tax = subtotal * 13 / 100;
-        double total = subtotal + tax;
+        measures[1] = measures[0] * 0.13;
+        // double tax = subtotal * 0.13;
+        measures[2] = measures[0] + measures[1];
+        // double total = subtotal + tax;
         return  "\tRECEIPT\n\n" +
-        "\tSubtotal: $" + subtotal + "\n" +
-        "\tTax: $" + tax + "\n" +
-        "\tTotal: $" + total + "\n";
+        "\tSubtotal: $" + measures[0] + "\n" +
+        "\tTax: $" + measures[1] + "\n" +
+        "\tTotal: $" + measures[2] + "\n";
     }
 
     public String toString() {
@@ -74,7 +78,5 @@ public class Cart {
         }
         return temp;
     }
-
-
 
 }

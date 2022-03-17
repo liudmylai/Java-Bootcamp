@@ -41,5 +41,18 @@ public class Item {
     public String toString() {
         return this.name + ": $" + this.price + " ";
     }
+    // customized equals() method
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Item)) {
+            return false;
+        }
+        // typecast a parameter to the type Item
+        Item item = (Item)obj;
+        // compare every field of both objects and return boolean result
+        return this.name.equals(item.name) && this.price == item.price;
+    }
 
 }
