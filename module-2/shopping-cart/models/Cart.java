@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 
 public class Cart {
-    ArrayList<Item> items;
+    private ArrayList<Item> items;
 
     public Cart() {
         this.items = new ArrayList<Item>();
