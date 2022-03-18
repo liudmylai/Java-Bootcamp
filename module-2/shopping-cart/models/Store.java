@@ -25,7 +25,7 @@ public class Store {
             case 6: temp += "\tELECTRONICS:   "; break; 
         }   
            for (int j = 0; j < items[i].length; j++) {
-               temp += this.items[i][j].toString();
+               temp += items[i][j].toString();
            }
            temp += "\n\n";
        }

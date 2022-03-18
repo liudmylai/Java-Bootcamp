@@ -39,7 +39,7 @@ public class Item {
     }
 
     public String toString() {
-        return this.name + ": $" + this.price + " ";
+        return name + ": $" + price + " ";
     }
     // customized equals() method
     public boolean equals(Object obj) {
