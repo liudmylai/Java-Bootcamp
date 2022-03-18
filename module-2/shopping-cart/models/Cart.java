@@ -29,6 +29,11 @@ public class Cart {
             this.items.add(new Item(item));
             return true; 
         }
+    
+    public boolean isEmpty() {
+        return this.items.isEmpty();
+    }
+       
     /**
     * Name: remove
     * @param name
