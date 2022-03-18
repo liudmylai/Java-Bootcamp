@@ -58,7 +58,7 @@ public class Cart {
     */
     public String checkOut() {
         if (items.isEmpty()) {
-            throw new IllegalStateException("Cannot remove from an empty cart");
+            throw new IllegalStateException("Cannot checkout an empty cart");
         }
         double[] measures = new double[3];
         // double subtotal = 0;
