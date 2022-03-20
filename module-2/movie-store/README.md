@@ -13,3 +13,4 @@ Create Java Video Store application using Object Oriented Concepts.
 - Practice exception handling
 - Practice using FileInputStream and Scanner to read data from the text file
 - Practice using ArrayList
+- Practice Test Driven Development
