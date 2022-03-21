@@ -17,3 +17,4 @@ Create Online Java Store application using Object Oriented Concepts.
 - Practice using ArrayList
 - Practice using 2D arrays
 - Practice customizing equals()
+- Practice Test Driven Development
