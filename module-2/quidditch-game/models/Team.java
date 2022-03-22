@@ -11,9 +11,21 @@ public class Team {
     private static final String POSITION_KEEPER = "keeper";
 
     public Team (String house, String keeper, String seeker, String[] chasers) {
+        if (house == null || house.isBlank()) {
+            throw new IllegalArgumentException("house cannot be null or blank");
+        }
         this.house = house;
+        if (keeper == null || keeper.isBlank()) {
+            throw new IllegalArgumentException("keeper cannot be null or blank");
+        }
         this.keeper = keeper;
+        if (seeker == null || seeker.isBlank()) {
+            throw new IllegalArgumentException("seeker cannot be null or blank");
+        }
         this.seeker = seeker;
+        if (chasers.length != 3) {
+            throw new IllegalArgumentException("chasers number must be equal 3");
+        }
         this.chasers = Arrays.copyOf(chasers, chasers.length);
     }
 
@@ -67,5 +79,24 @@ public class Team {
                 "Keeper: " + this.keeper + "\n" +         
                 "Seeker: "  + this.seeker + "\n" +         
                 "Chasers: " + Arrays.toString(this.chasers) + "\n"; 
+    }
+
+    /**
+    * Function name: hasNull
+    * @param array
+    * @return (boolean)
+    * 
+    * Inside the function:
+    *    1. return false;
+    */
+    public static boolean hasNull(String[] array) {
+        // for (String value : array) {
+        //     if (value == null) {
+        //         return true;
+        //     }
+        // }
+        // return false;
+        return Arrays.stream(array)
+            .anyMatch(value -> value == null);
     }
 }
