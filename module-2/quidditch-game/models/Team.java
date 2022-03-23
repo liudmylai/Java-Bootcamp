@@ -11,21 +11,21 @@ public class Team {
     private static final String POSITION_KEEPER = "keeper";
 
     public Team (String house, String keeper, String seeker, String[] chasers) {
-        if (house == null || house.isBlank()) {
-            throw new IllegalArgumentException("house cannot be null or blank");
+        if (house == null || keeper == null || seeker == null) {
+            throw new IllegalArgumentException("field values cannot be null");
+        }
+        if ( house.isBlank() || keeper.isBlank() || seeker.isBlank()) {
+            throw new IllegalArgumentException("field values cannot be blank");
+        }
+        if (chasers.length != 3) {
+            throw new IllegalArgumentException("must have 3 chasers");
+        }
+        if (hasNull(chasers) || hasBlank(chasers)) {
+            throw new IllegalArgumentException("Illegal elements");
         }
         this.house = house;
-        if (keeper == null || keeper.isBlank()) {
-            throw new IllegalArgumentException("keeper cannot be null or blank");
-        }
         this.keeper = keeper;
-        if (seeker == null || seeker.isBlank()) {
-            throw new IllegalArgumentException("seeker cannot be null or blank");
-        }
         this.seeker = seeker;
-        if (chasers.length != 3) {
-            throw new IllegalArgumentException("chasers number must be equal 3");
-        }
         this.chasers = Arrays.copyOf(chasers, chasers.length);
     }
 
@@ -61,16 +61,28 @@ public class Team {
         return Arrays.copyOf(chasers, chasers.length);
     }
 
+    public void checkParam(String param) {
+        if (param == null || param.isBlank()) {
+            throw new IllegalArgumentException("parameter cannot be null or blank");
+        }
+    }
+
     public void setHouse(String house) {
+        checkParam(house);
         this.house = house;
     }
     public void setKeeper(String keeper) {
+        checkParam(keeper);
         this.keeper = keeper;
     }
     public void setSeeker(String seeker) {
+        checkParam(seeker);
         this.seeker = seeker;
     }
     public void setChasers(String[] chasers) {
+        if (chasers.length != 3 || hasNull(chasers) || hasBlank(chasers)) {
+            throw new IllegalArgumentException("Illegal chaser arguments");
+        }
         this.chasers = Arrays.copyOf(chasers, chasers.length);
     }
 
@@ -87,7 +99,7 @@ public class Team {
     * @return (boolean)
     * 
     * Inside the function:
-    *    1. return false;
+    *    1. return true if any element equals null;
     */
     public static boolean hasNull(String[] array) {
         // for (String value : array) {
@@ -99,4 +111,18 @@ public class Team {
         return Arrays.stream(array)
             .anyMatch(value -> value == null);
     }
+    /**
+    * Function name: hasBlank
+    * @param array
+    * @return (boolean)
+    * 
+    * Inside the function:
+    *    1. return true if any element is blank;
+    */
+    public static boolean hasBlank(String[] array) {
+        return Arrays.stream(array)
+            .anyMatch(value -> value.isBlank());
+    }
+
+   
 }
