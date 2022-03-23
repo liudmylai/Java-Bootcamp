@@ -1,5 +1,6 @@
 package models;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Team {
     private String house;
@@ -123,6 +124,25 @@ public class Team {
         return Arrays.stream(array)
             .anyMatch(value -> value.isBlank());
     }
+
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(!(obj instanceof Team)) {
+            return false;
+        }
+        Team team = (Team) obj;
+        return this.house.equals(team.house) &&
+               this.keeper.equals(team.keeper) &&
+               this.seeker.equals(team.seeker) &&
+               Arrays.toString(this.chasers).equals(Arrays.toString(team.chasers)); 
+    }
+
+    public int hashCode() {
+        return Objects.hash(house,keeper,seeker,Arrays.toString(chasers));
+    }
+  
 
    
 }
