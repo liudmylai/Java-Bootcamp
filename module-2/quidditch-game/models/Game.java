@@ -6,7 +6,7 @@ public class Game {
 
     private HashMap<Team, Integer> scoreboard;
     private static int gameCount;
-
+    private static final int QUAFFLE_POINTS = 10; 
 
     public Game(Team home, Team away) {
         this.scoreboard = new HashMap<Team, Integer>();
@@ -25,7 +25,7 @@ public class Game {
 
     public Team getTeam(String name) {
       return this.scoreboard.keySet().stream()
-        .filter((key)-> key.getHouse().equals(name))
+        .filter((key) -> key.getHouse().equals(name))
         .findFirst()
         .orElse(null);
     }
@@ -34,6 +34,40 @@ public class Game {
         return gameCount;
     }
 
+    /**
+     * Function name: getPlaceholder
+     * @param play (String)
+     * @return (String)
+     * 
+     * Inside the function:
+     *  1. Returns a substring between two < > characters.
+     */
+    public String getPlaceholder(String play) {
+        return play.substring(play.indexOf("<") + 1, play.indexOf(">"));
+    }
 
-    
+     /** 
+     * Function name: replacePlaceholder
+     * @param play
+     * @param placeholder
+     * @param value
+     * @return (String)
+     * 
+     * Inside the function:
+     *  1. Replaces the placeholder in a play with a value
+     */
+    public String replacePlaceholder(String play, String placeholder, String value) {
+        return play.replace("<" + placeholder + ">", value);
+    }
+
+     /**
+     * Function name: quaffleScore
+     * @param team
+     * 
+     * Inside the function:
+     *  1. Update the team's points by `QUAFFLE_POINTS`. <---
+     */
+    public void quaffleScore(Team team) {
+        setScore(team, getScore(team) + QUAFFLE_POINTS);
+    }
 }
