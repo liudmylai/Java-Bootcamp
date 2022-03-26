@@ -6,7 +6,8 @@ public class Game {
 
     private HashMap<Team, Integer> scoreboard;
     private static int gameCount;
-    private static final int QUAFFLE_POINTS = 10; 
+    private static final int QUAFFLE_POINTS = 10;
+    private static final int SNITCH_POINTS = 150;
 
     public Game(Team home, Team away) {
         this.scoreboard = new HashMap<Team, Integer>();
@@ -69,5 +70,16 @@ public class Game {
      */
     public void quaffleScore(Team team) {
         setScore(team, getScore(team) + QUAFFLE_POINTS);
+    }
+
+     /**
+     * Function name: catchSnitch
+     * @param team
+     * 
+     * Inside the function:
+     *  1. Update the team's points by `SNITCH_POINTS`. <---
+     */
+    public void catchSnitch(Team team) {
+        setScore(team, getScore(team) + SNITCH_POINTS);
     }
 }

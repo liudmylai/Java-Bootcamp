@@ -40,4 +40,11 @@ public class GameTest {
         assertEquals(20, game.getScore(team));  
     }
 
+    @Test
+    public void catchSnitchTest() {
+        Team team = game.getTeam("SLYTHERIN");
+        game.catchSnitch(team);
+        assertEquals(150, game.getScore(team));
+    }
+
 }
