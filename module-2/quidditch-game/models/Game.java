@@ -1,6 +1,8 @@
 package models;
 
 import java.util.HashMap;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -81,5 +83,44 @@ public class Game {
      */
     public void catchSnitch(Team team) {
         setScore(team, getScore(team) + SNITCH_POINTS);
+    }
+
+    /**
+     * Function name: random
+     * @param range
+     * @return int
+     * 
+     * Inside the function:
+     *  1. Returns a number between 0 and one less the range
+    */
+    public int random(int range) {
+        return new Random().nextInt(range);
+    }
+
+    /**
+     * Function name: getRandomTeam()
+     * @return (Team)
+     * 
+     *  1. converts scoreBoard to keySet.
+     *  2. converts keyset to array (easier to index).
+     *  3. returns a random team from the array of teams. 
+     */
+    public Team getRandomTeam() {
+        return (Team) scoreboard.keySet().toArray()[random(scoreboard.size())];
+    }
+
+    public String simulate(String play) {
+        String placeholder = getPlaceholder(play);
+        Team team = getRandomTeam();
+        if(Team.getPositionChaser().equals(placeholder)) {
+            quaffleScore(team);
+            String chaser = team.getChasers()[random(team.getChasers().length)];
+            return replacePlaceholder(play, placeholder, chaser);
+        } else if(Team.getPositionSeeker().equals(placeholder)) {
+            catchSnitch(team);
+            return replacePlaceholder(play, placeholder, team.getSeeker());
+        } else {
+            return replacePlaceholder(play, placeholder, team.getKeeper());
+        }
     }
 }
