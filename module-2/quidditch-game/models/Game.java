@@ -2,7 +2,6 @@ package models;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Game {
 
@@ -18,8 +17,16 @@ public class Game {
         gameCount++;
     }
 
+    public static int getQuafflePoints() {
+        return QUAFFLE_POINTS;
+    }
+
+    public static int getSnitchPoints() {
+        return SNITCH_POINTS;
+    }
+
     public Integer getScore(Team team) {
-        return scoreboard.get(team);
+        return this.scoreboard.get(team);
     }
 
     public void setScore(Team team, Integer score) {
@@ -71,7 +78,7 @@ public class Game {
      *  1. Update the team's points by `QUAFFLE_POINTS`. <---
      */
     public void quaffleScore(Team team) {
-        setScore(team, getScore(team) + QUAFFLE_POINTS);
+        this.setScore(team, this.getScore(team) + QUAFFLE_POINTS);
     }
 
      /**
@@ -82,7 +89,7 @@ public class Game {
      *  1. Update the team's points by `SNITCH_POINTS`. <---
      */
     public void catchSnitch(Team team) {
-        setScore(team, getScore(team) + SNITCH_POINTS);
+        this.setScore(team, this.getScore(team) + SNITCH_POINTS);
     }
 
     /**
@@ -112,15 +119,18 @@ public class Game {
     public String simulate(String play) {
         String placeholder = getPlaceholder(play);
         Team team = getRandomTeam();
-        if(Team.getPositionChaser().equals(placeholder)) {
+        String value = "";
+
+        if (Team.getPositionChaser().equals(placeholder)) {
             quaffleScore(team);
-            String chaser = team.getChasers()[random(team.getChasers().length)];
-            return replacePlaceholder(play, placeholder, chaser);
-        } else if(Team.getPositionSeeker().equals(placeholder)) {
+            value = team.getChasers()[random(team.getChasers().length)];
+        } else if (Team.getPositionSeeker().equals(placeholder)) {
             catchSnitch(team);
-            return replacePlaceholder(play, placeholder, team.getSeeker());
-        } else {
-            return replacePlaceholder(play, placeholder, team.getKeeper());
+            value = team.getSeeker();
+        } else if (Team.getPositionKeeper().equals(placeholder)) {
+            value = team.getKeeper();
         }
+
+        return replacePlaceholder(play, placeholder, value);
     }
 }

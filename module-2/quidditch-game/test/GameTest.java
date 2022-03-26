@@ -37,14 +37,14 @@ public class GameTest {
         Team team = game.getTeam("GRYFFINDOR");
         game.quaffleScore(team);
         game.quaffleScore(team);
-        assertEquals(20, game.getScore(team));  
+        assertEquals(Game.getQuafflePoints() * 2, game.getScore(team));  
     }
 
     @Test
     public void catchSnitchTest() {
         Team team = game.getTeam("SLYTHERIN");
         game.catchSnitch(team);
-        assertEquals(150, game.getScore(team));
+        assertEquals(Game.getSnitchPoints(), game.getScore(team));
     }
 
 }
