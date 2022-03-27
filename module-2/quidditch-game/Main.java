@@ -26,6 +26,21 @@ public class Main {
         return new String[][] {lines[0].split(","), lines[1].split(",")}; 
     }
 
+     /** Function name: startGame
+     * 
+     * Inside the function:
+     *    1. Grabs each play from plays.txt and call game.simulate(play);
+     *    2. Prints the result from game.simulate(play): println("\n" + <result> + "\n");
+     */
+    public static void startGame() throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(PLAYS_FILE);
+        Scanner scan =  new Scanner(fis);
+        while (scan.hasNextLine()) {
+            System.out.println("\n" + game.simulate(scan.nextLine()) + "\n");
+        }
+        scan.close();  
+    }
+
     public static void main(String[] args) {
 
         try {
@@ -34,14 +49,13 @@ public class Main {
                 new Team(data[0][0], data[0][1], data[0][2], new String[] {data[0][3], data[0][4], data[0][5]}),
                 new Team(data[1][0], data[1][1], data[1][2], new String[] {data[1][3], data[1][4], data[1][5]})
             );
+            startGame();
+
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
 
     }
-     
-
-    
 
 }
     
