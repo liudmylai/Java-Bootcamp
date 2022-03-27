@@ -41,6 +41,21 @@ public class Main {
         scan.close();  
     }
 
+    /** Function name: printResult()
+     * 
+     * Inside the function:
+     *    1. Prints the final score: println("\nGRYFFINDOR: " + <gryffindor score> + " SLYTHERIN: " + <slytherin score>);
+     *    2. Prints the winner: println("\n" + <winner team name> + " WINS!");
+     *  
+     */
+    public static void printResult() {
+        int gryffindorScore = game.getScore(game.getTeam("GRYFFINDOR"));
+        int slytherinScore = game.getScore(game.getTeam("SLYTHERIN"));
+        System.out.println("\nGRYFFINDOR: " + gryffindorScore + " SLYTHERIN: " + slytherinScore);
+        if( gryffindorScore > slytherinScore) System.out.println("\nGRYFFINDOR WINS!");
+        if( gryffindorScore < slytherinScore) System.out.println("\nSLYTHERIN WINS!");
+    }
+
     public static void main(String[] args) {
 
         try {
@@ -50,7 +65,7 @@ public class Main {
                 new Team(data[1][0], data[1][1], data[1][2], new String[] {data[1][3], data[1][4], data[1][5]})
             );
             startGame();
-
+            printResult();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
