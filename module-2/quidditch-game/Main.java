@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import models.*;
 
@@ -36,6 +37,7 @@ public class Main {
         FileInputStream fis = new FileInputStream(PLAYS_FILE);
         Scanner scan =  new Scanner(fis);
         while (scan.hasNextLine()) {
+            wait(3);
             System.out.println("\n" + game.simulate(scan.nextLine()) + "\n");
         }
         scan.close();  
@@ -56,8 +58,24 @@ public class Main {
         if( gryffindorScore < slytherinScore) System.out.println("\nSLYTHERIN WINS!");
     }
 
-    public static void main(String[] args) {
+     /**
+     * Function name: wait
+     * @param sec
+     * 
+     * Inside the function:
+     *  1. Make the code sleep for X seconds.
+     */
+    public static void wait(int sec) {
+        try{
+            TimeUnit.SECONDS.sleep(sec);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());            
+        }
+    }
 
+    
+
+    public static void main(String[] args) {
         try {
             String[][] data = getData();
             game = new Game(
@@ -69,7 +87,6 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
 }
