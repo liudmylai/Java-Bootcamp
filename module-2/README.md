@@ -3,6 +3,7 @@
 ### chalenges
 - [vending-machine](./vending-machine)
 - [shopping-cart](./shopping-cart)
+- [quidditch-game](./quidditch-game)
 
 ### workshops
 - [airline-reservation-system](./airline-reservation-system)
