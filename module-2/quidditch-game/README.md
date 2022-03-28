@@ -1,4 +1,4 @@
-## Quidditch
+## Quidditch Game
 Create Quidditch Java application using Object Oriented Concepts that is based on the fictional game of Quidditch popularised in the Harry Potter books.
 
 ### Steps to follow
@@ -7,8 +7,8 @@ Create Quidditch Java application using Object Oriented Concepts that is based o
 - Each team has: 1 "keeper", 1 "seeker", and 3 "chasers".
 - During the game, a scoreboard keeps track of every team's points.
 - It finds each placeholder and replaces it with a player from a random team.
-- If the placeholder is <chaser>, then update a team's Quaffle points.
-- If the placeholder is <seeker>, then update a team's Snitch points.
+- If the placeholder is `<chaser>`, then update a team's Quaffle points.
+- If the placeholder is `<seeker>`, then update a team's Snitch points.
 - Scoring the "Quaffle" is worth 10 points, and catching the "Snitch" is worth 150 points.
   
 ### Learning Objectives
