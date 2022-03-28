@@ -10,7 +10,7 @@ Create Quidditch Java application using Object Oriented Concepts that is based o
 - If the placeholder is `<chaser>`, then update a team's Quaffle points.
 - If the placeholder is `<seeker>`, then update a team's Snitch points.
 - Scoring the "Quaffle" is worth 10 points, and catching the "Snitch" is worth 150 points.
-- The winner of the match is the team with the most points at the end of the game.
+- The winner is the team with the most points at the end of the game.
   
 ### Learning Objectives
 - Practice planning code around classes and objects
