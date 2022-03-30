@@ -1,4 +1,8 @@
+package models;
+
 import java.util.Objects;
+
+import interfaces.Taxable;
 
 public class Chequing extends Account implements Taxable {
 

@@ -1,5 +1,9 @@
 import java.util.concurrent.TimeUnit;
 
+import models.Chequing;
+import models.Loan;
+import models.Savings;
+
 public class Main {
 
     static String ACCOUNTS_FILE = ".\\data\\accounts.txt";            

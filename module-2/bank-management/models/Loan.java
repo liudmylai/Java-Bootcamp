@@ -1,4 +1,8 @@
+package models;
+
 import java.util.Objects;
+
+import interfaces.Taxable;
 
 public class Loan extends Account implements Taxable {
 
