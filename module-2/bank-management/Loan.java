@@ -3,7 +3,7 @@ import java.util.Objects;
 public class Loan extends Account implements Taxable {
 
 
-    public Loan(int id, String name, double balance) {
+    public Loan(String id, String name, double balance) {
         super(id, name, balance);
     }
     public Loan(Loan source) {

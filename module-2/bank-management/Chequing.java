@@ -3,9 +3,8 @@ import java.util.Objects;
 public class Chequing extends Account implements Taxable {
 
     static final double FEE = 5.50;
-    static double tax = 0;
 
-    public Chequing(int id, String name, double balance) {
+    public Chequing(String id, String name, double balance) {
         super(id, name, balance);
     }
 
@@ -13,23 +12,16 @@ public class Chequing extends Account implements Taxable {
         super(source);
     }
 
-    @Override
-    public String toString() {
-        return "\nAccount ID: " + super.getId() +
-               "\nAccount name: " + super.getName() +
-               "\nBalance: " + super.getBalance() +
-               "\nTax: " + tax; 
-    }
 
     @Override
     public void withdraw(double amount) {
-        if(amount > this.getBalance() && (amount - this.getBalance()) < 200) {
-             this.setBalance(this.getBalance() - amount - FEE);
-        } else if (amount > this.getBalance() && (amount - this.getBalance()) >= 200) {
-            System.out.println("Overdraft limit is $200.00");
-        }
+        if ((amount - super.getBalance()) > 200) {
+            System.out.println("\nOverdraft limit is $200.00");
+        } else if (amount > super.getBalance()) {
+            super.setBalance(super.getBalance() - amount - FEE);
+        } 
         else {
-            this.setBalance(this.getBalance() - amount);
+            super.setBalance(super.getBalance() - amount);
         }
     }
 
@@ -40,12 +32,11 @@ public class Chequing extends Account implements Taxable {
 
     @Override
     public void deposit (double amount) {
-        double income = this.getBalance() + amount; 
+        double income = super.getBalance() + amount; 
         if(income > 3000) {
-            tax = calculateTax(income);
-            this.setBalance(income - tax);
+            super.setBalance(income - calculateTax(income));
         } else {
-            this.setBalance(income);
+            super.setBalance(income);
         }
     }
 

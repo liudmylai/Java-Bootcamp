@@ -3,22 +3,13 @@ import java.util.Objects;
 public class Savings extends Account {
 
     static final double FEE = 5.00;
-    double totalFee = 0;
     
-    public Savings(int id, String name, double balance) {
+    public Savings(String id, String name, double balance) {
         super(id, name, balance);
     }
 
     public Savings(Savings source) {
         super(source);
-    }
-
-    @Override
-    public String toString() {
-        return "\nAccount ID: " + super.getId() +
-               "\nAccount name: " + super.getName() +
-               "\nBalance: " + super.getBalance() +
-               "\nFee: " + totalFee; 
     }
 
     @Override
@@ -29,7 +20,6 @@ public class Savings extends Account {
     @Override
     public void withdraw(double amount) {
         super.setBalance(super.getBalance() - amount - FEE);
-        totalFee += FEE;
     }
 
     @Override
