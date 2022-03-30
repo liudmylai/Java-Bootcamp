@@ -1,9 +1,13 @@
+
 public abstract class Account {
-    private int id;
+    private String id;
     private String name;
     private double balance;
 
-    public Account(int id, String name, double balance) {
+    public Account(String id, String name, double balance) {
+        if (id == null || id.isBlank() || name == null || name.isBlank()) {
+            throw new IllegalArgumentException("INVALID PARAMS");
+        }
         this.id = id;
         this.name = name;
         this.balance = balance;
@@ -15,7 +19,7 @@ public abstract class Account {
         this.balance = source.balance;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
     public String getName() {
@@ -25,21 +29,29 @@ public abstract class Account {
         return this.balance;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
+        if(id == null || id.isBlank()) {
+            throw new IllegalArgumentException("INVALID ID");
+        }
         this.id = id;
     }
     public void setName(String name) {
+        if(name == null || name.isBlank()) {
+            throw new IllegalArgumentException("INVALID NAME");
+        }
         this.name = name;
     }
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    // public String toString() {
-    //     return "\nAccount ID: " + this.id +
-    //            "\nAccount name: " + this.name +
-    //            "\nBalance: " + this.balance; 
-    // }
+    @Override
+    public String toString() {
+        return (this.getClass().getSimpleName()) + "    " +
+            "\t" + this.getId() + "" +
+            "\t" + this.getName() + "" +
+            "\t$" + this.getBalance() + "";
+    }
 
     public abstract void withdraw(double amount);
 
