@@ -53,10 +53,29 @@ public class AccountTests {
         accounts[1].withdraw(100);
         assertEquals(2136.60, accounts[1].getBalance());
     }
+
     @Test
     public void deposit1() {
         accounts[1].deposit(5000);
         assertEquals(7241.60, accounts[1].getBalance());
+    }
+
+    @Test
+    public void withdrawalInterest() {
+        accounts[2].withdraw(2434.31);
+        assertEquals(5020.31, accounts[2].getBalance());
+    }
+
+    @Test
+    public void withdrawalLimit() {
+        accounts[2].withdraw(7463.69);
+        assertEquals(2537.31, accounts[2].getBalance()); 
+    }
+
+    @Test
+    public void loanDeposit() {
+        accounts[2].deposit(1000);
+        assertEquals(1537.31, accounts[2].getBalance());
     }
 
 

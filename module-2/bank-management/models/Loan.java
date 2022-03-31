@@ -2,9 +2,11 @@ package models;
 
 import java.util.Objects;
 
-import interfaces.Taxable;
 
-public class Loan extends Account implements Taxable {
+public class Loan extends Account {
+
+    private static final double RATE = 0.02;
+    private static final double MAX_DEBT = 10000;
 
 
     public Loan(String id, String name, double balance) {
@@ -16,24 +18,24 @@ public class Loan extends Account implements Taxable {
 
     @Override
     public boolean withdraw(double amount) {
-        return false;
-        // if (super.getBalance() <= 10000) {
-        //     super.setBalance(super.getBalance() - amount - calculateTax(amount));
-        // } else {
-        //     System.out.println("The withdrawal can't be made");
-        // }
+        if (super.getBalance() + amount > MAX_DEBT) {
+            return false;
+        }
+            super.setBalance(super.round(super.getBalance() + amount + (amount * RATE)));
+        return true;
+
 
     }
 
     @Override
     public void deposit (double amount) {
-        // super.setBalance(super.getBalance() + amount);
+        super.setBalance(super.round(super.getBalance() - amount));
     }
     
-    @Override
-    public double calculateTax(double num) {
-        return num * 0.02;
-    }
+    // @Override
+    // public double calculateTax(double num) {
+    //     return num * 0.02;
+    // }
     
     @Override
     public boolean equals(Object o) {
