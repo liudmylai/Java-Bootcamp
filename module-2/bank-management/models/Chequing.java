@@ -7,6 +7,7 @@ import interfaces.Taxable;
 public class Chequing extends Account implements Taxable {
 
     static final double FEE = 5.50;
+    static final double LIMIT = 200;
 
     public Chequing(String id, String name, double balance) {
         super(id, name, balance);
@@ -18,15 +19,17 @@ public class Chequing extends Account implements Taxable {
 
 
     @Override
-    public void withdraw(double amount) {
-        if ((amount - super.getBalance()) > 200) {
+    public boolean withdraw(double amount) {
+        if ((amount - super.getBalance()) > LIMIT) {
             System.out.println("\nOverdraft limit is $200.00");
+            return false;
         } else if (amount > super.getBalance()) {
-            super.setBalance(super.getBalance() - amount - FEE);
+            super.setBalance(super.round(super.getBalance() - amount - FEE));
         } 
         else {
-            super.setBalance(super.getBalance() - amount);
+            super.setBalance(super.round(super.getBalance() - amount));
         }
+        return true;
     }
 
     @Override
@@ -35,13 +38,8 @@ public class Chequing extends Account implements Taxable {
     }
 
     @Override
-    public void deposit (double amount) {
-        double income = super.getBalance() + amount; 
-        if(income > 3000) {
-            super.setBalance(income - calculateTax(income));
-        } else {
-            super.setBalance(income);
-        }
+    public void deposit(double amount) {
+        super.setBalance(super.round(super.getBalance() + amount));
     }
 
     @Override

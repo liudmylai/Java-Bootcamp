@@ -15,18 +15,19 @@ public class Loan extends Account implements Taxable {
     }
 
     @Override
-    public void withdraw(double amount) {
-        if (super.getBalance() <= 10000) {
-            super.setBalance(super.getBalance() - amount - calculateTax(amount));
-        } else {
-            System.out.println("The withdrawal can't be made");
-        }
+    public boolean withdraw(double amount) {
+        return false;
+        // if (super.getBalance() <= 10000) {
+        //     super.setBalance(super.getBalance() - amount - calculateTax(amount));
+        // } else {
+        //     System.out.println("The withdrawal can't be made");
+        // }
 
     }
 
     @Override
     public void deposit (double amount) {
-        super.setBalance(super.getBalance() + amount);
+        // super.setBalance(super.getBalance() + amount);
     }
     
     @Override
