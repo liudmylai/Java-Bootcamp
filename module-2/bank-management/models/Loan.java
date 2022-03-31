@@ -23,19 +23,12 @@ public class Loan extends Account {
         }
             super.setBalance(super.round(super.getBalance() + amount + (amount * RATE)));
         return true;
-
-
     }
 
     @Override
     public void deposit (double amount) {
         super.setBalance(super.round(super.getBalance() - amount));
     }
-    
-    // @Override
-    // public double calculateTax(double num) {
-    //     return num * 0.02;
-    // }
     
     @Override
     public boolean equals(Object o) {

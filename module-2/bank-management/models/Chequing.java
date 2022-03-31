@@ -8,6 +8,9 @@ public class Chequing extends Account implements Taxable {
 
     static final double FEE = 5.50;
     static final double LIMIT = 200;
+    static final double TAXABLE_INCOME = 3000;
+    static final double TAX_RATE = 0.15;
+   
 
     public Chequing(String id, String name, double balance) {
         super(id, name, balance);
@@ -33,8 +36,9 @@ public class Chequing extends Account implements Taxable {
     }
 
     @Override
-    public double calculateTax(double num) {
-        return num * 0.15;
+    public void tax (double income) {
+        double tax = Math.max(0, income - TAXABLE_INCOME) * TAX_RATE;
+        super.setBalance(super.round(super.getBalance() - tax));
     }
 
     @Override

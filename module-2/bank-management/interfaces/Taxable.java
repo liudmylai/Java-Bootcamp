@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface Taxable {
-    public double calculateTax(double num);
+    public void tax(double income);
 }

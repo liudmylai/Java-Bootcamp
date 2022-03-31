@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import interfaces.Taxable;
 import models.Account;
 import models.Chequing;
 import models.Loan;
@@ -28,54 +29,52 @@ public class AccountTests {
         accounts[0].withdraw(1440);
         assertEquals(84.51, accounts[0].getBalance());
     }
-
     @Test
     public void overdraft() {
         accounts[0].withdraw(1534.43);
         assertEquals(-15.42, accounts[0].getBalance());
     }
-
     @Test
     public void overdraftLimit() {
         accounts[0].withdraw(1726);
         assertEquals(1524.51, accounts[0].getBalance());
-
     }
-
     @Test
     public void deposit() {
         accounts[0].deposit(5000);
         assertEquals(6524.51, accounts[0].getBalance());
     }
-
     @Test
     public void withdrawalFee() {
         accounts[1].withdraw(100);
         assertEquals(2136.60, accounts[1].getBalance());
     }
-
     @Test
     public void deposit1() {
         accounts[1].deposit(5000);
         assertEquals(7241.60, accounts[1].getBalance());
     }
-
     @Test
     public void withdrawalInterest() {
         accounts[2].withdraw(2434.31);
         assertEquals(5020.31, accounts[2].getBalance());
     }
-
     @Test
     public void withdrawalLimit() {
         accounts[2].withdraw(7463.69);
         assertEquals(2537.31, accounts[2].getBalance()); 
     }
-
     @Test
     public void loanDeposit() {
         accounts[2].deposit(1000);
         assertEquals(1537.31, accounts[2].getBalance());
+    }
+    @Test
+    public void incomeTax() {
+        double income = 4000;
+        accounts[0].deposit(income);
+        ((Taxable)accounts[0]).tax(income);
+        assertEquals(5374.51, accounts[0].getBalance());
     }
 
 
