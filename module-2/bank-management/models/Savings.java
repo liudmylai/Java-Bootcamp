@@ -16,13 +16,14 @@ public class Savings extends Account {
 
     @Override
     public void deposit (double amount) {
-        // super.setBalance(super.getBalance() + amount);
+        super.setBalance(super.round(super.getBalance() + amount));
     }
 
     @Override
     public boolean withdraw(double amount) {
-        return false;
-        // super.setBalance(super.getBalance() - amount - FEE);
+        super.setBalance(super.round(super.getBalance() - amount - FEE));
+        return true;
+        
     }
 
     @Override

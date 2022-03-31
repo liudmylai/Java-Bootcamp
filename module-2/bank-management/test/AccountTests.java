@@ -48,6 +48,17 @@ public class AccountTests {
         assertEquals(6524.51, accounts[0].getBalance());
     }
 
+    @Test
+    public void withdrawalFee() {
+        accounts[1].withdraw(100);
+        assertEquals(2136.60, accounts[1].getBalance());
+    }
+    @Test
+    public void deposit1() {
+        accounts[1].deposit(5000);
+        assertEquals(7241.60, accounts[1].getBalance());
+    }
+
 
     
 }
