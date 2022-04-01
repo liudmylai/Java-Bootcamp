@@ -62,9 +62,14 @@ public abstract class Account {
 
     public abstract void deposit (double amount);
 
+    public abstract Account clone();
+
+
     protected double round(double amount) {
         DecimalFormat formatter = new DecimalFormat("#.##", new DecimalFormatSymbols(Locale.ENGLISH));
         return Double.parseDouble(formatter.format(amount));
     }
+
+
      
 }

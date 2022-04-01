@@ -20,6 +20,11 @@ public class Chequing extends Account implements Taxable {
         super(source);
     }
 
+    @Override
+    public Account clone() {
+        return new Chequing(this);
+    }
+
 
     @Override
     public boolean withdraw(double amount) {
@@ -63,6 +68,8 @@ public class Chequing extends Account implements Taxable {
     public int hashCode() {
         return Objects.hash(super.getId(), super.getName(), super.getBalance());
     }
+
+  
 
 
 }

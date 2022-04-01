@@ -15,6 +15,11 @@ public class Savings extends Account {
     }
 
     @Override
+    public Account clone() {
+        return new Savings(this);
+    }
+
+    @Override
     public void deposit (double amount) {
         super.setBalance(super.round(super.getBalance() + amount));
     }
@@ -23,7 +28,6 @@ public class Savings extends Account {
     public boolean withdraw(double amount) {
         super.setBalance(super.round(super.getBalance() - amount - FEE));
         return true;
-        
     }
 
     @Override

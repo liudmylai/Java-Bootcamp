@@ -12,7 +12,7 @@ public class Transaction implements Comparable<Transaction>{
     private String id;
     private double amount;
 
-    public Transaction(long timestamp, Type type, String id, double amount) {
+    public Transaction(Type type, long timestamp,  String id, double amount) {
         if(id == null || id.isBlank() || amount < 0) {
             throw new IllegalArgumentException("INVALID PARAMS");
         }

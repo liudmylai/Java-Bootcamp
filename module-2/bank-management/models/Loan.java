@@ -17,6 +17,11 @@ public class Loan extends Account {
     }
 
     @Override
+    public Account clone() {
+        return new Loan(this);
+    }
+
+    @Override
     public boolean withdraw(double amount) {
         if (super.getBalance() + amount > MAX_DEBT) {
             return false;
