@@ -16,6 +16,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             ArrayList<Account> accounts = returnAccounts();
+            loadAccounts(accounts);
 
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -76,6 +77,18 @@ public class Main {
         }
         scan.close();
         return accounts;
+    }
+
+    /**
+     * Name: loadAccounts
+     * @param accounts (ArrayList<Account>)
+     * 
+     * Inside the function:
+     *   1. Loads every account into the Bank object.
+     *  
+     */
+    public static void loadAccounts(ArrayList<Account> accounts) {
+        accounts.stream().forEach(account -> bank.addAccount(account));
     }
 
 }
