@@ -4,6 +4,7 @@
 - [vending-machine](./vending-machine)
 - [shopping-cart](./shopping-cart)
 - [quidditch-game](./quidditch-game)
+- [bank-management](./bank-management)
 
 ### workshops
 - [airline-reservation-system](./airline-reservation-system)
