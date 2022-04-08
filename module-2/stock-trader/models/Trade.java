@@ -33,7 +33,7 @@ public class Trade {
         this.type = type;
     }
 
-    public Trade(Stock stock, Type type, int shares, double price) {
+    public Trade(Stock stock, Type type, double price, int shares) {
         this.stock = stock;
         this.type = type;
         this.shares = shares;

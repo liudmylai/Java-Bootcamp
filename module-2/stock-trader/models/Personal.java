@@ -1,5 +1,7 @@
 package models;
 
+import models.Trade.Type;
+
 public class Personal extends Account {
 
     public Personal(double funds) {
@@ -11,7 +13,10 @@ public class Personal extends Account {
 
     @Override
     public boolean makeTrade(Trade trade) {
-        return true;
+        if (Type.MARKET_BUY.equals(trade.getType())) {
+            return executeBuy(trade);
+        }
+        return false;
     }
 
 }

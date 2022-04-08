@@ -47,4 +47,18 @@ public abstract class Account {
 
     public abstract boolean makeTrade(Trade trade);
 
+    public boolean executeBuy(Trade trade, double fee) {
+        double amount = trade.getPrice() * trade.getShares();
+        amount += amount * fee;
+        if ( amount > this.funds) {
+            return false;
+        }
+        setFunds(this.funds - amount);
+        setShares(trade.getStock(), trade.getShares());
+        return true;
+    }
+
+    public boolean executeBuy(Trade trade) {
+        return executeBuy(trade, 0);
+    }
 }
