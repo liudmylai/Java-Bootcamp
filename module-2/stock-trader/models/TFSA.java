@@ -18,6 +18,9 @@ public class TFSA extends Account {
         if (Type.MARKET_BUY.equals(trade.getType())) {
             return executeBuy(trade, TRADE_FEE);
         }
+        if (Type.MARKET_SELL.equals(trade.getType())) {
+            return executeSell(trade, TRADE_FEE);
+        }
         return false;
     } 
 }

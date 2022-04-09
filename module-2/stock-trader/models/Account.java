@@ -1,5 +1,6 @@
 package models;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -19,11 +20,12 @@ public abstract class Account {
     }
 
     public Integer getShares(Stock stock) {
-        return this.portfolio.entrySet().stream()
-               .filter(entry -> entry.getKey().equals(stock))
-               .findFirst()
-               .orElse(null)
-               .getValue(); 
+        return this.portfolio.get(stock);
+        // return this.portfolio.entrySet().stream()
+        //        .filter(entry -> entry.getKey().equals(stock))
+        //        .findFirst()
+        //        .orElse(null)
+        //        .getValue(); 
     }
 
     public void setShares(Stock stock, int shares) {
@@ -49,11 +51,10 @@ public abstract class Account {
 
     public boolean executeBuy(Trade trade, double fee) {
         double amount = trade.getPrice() * trade.getShares();
-        amount += amount * fee;
-        if ( amount > this.funds) {
+        if ((amount + amount * fee) > this.funds) {
             return false;
         }
-        setFunds(this.funds - amount);
+        setFunds(this.funds - amount - amount * fee);
         setShares(trade.getStock(), getShares(trade.getStock()) + trade.getShares());
         return true;
     }
@@ -62,4 +63,18 @@ public abstract class Account {
         return executeBuy(trade, 0);
     }
 
+    public boolean executeSell(Trade trade, double fee) {
+        if (getShares(trade.getStock()) < trade.getShares()) {
+            return false;
+        }
+        double amount = trade.getPrice() * trade.getShares();
+        setFunds(getFunds() + amount - amount * fee);
+        setShares(trade.getStock(), getShares(trade.getStock()) - trade.getShares());
+        return true;
+    }
+
+    public double round(double amount) {
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        return Double.parseDouble(formatter.format(amount));
+    }
 }
