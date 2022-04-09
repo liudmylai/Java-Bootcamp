@@ -19,36 +19,36 @@ public class BuyTests {
     @Test
     public void personalShares() {
         accounts[0].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 5));
-        assertEquals(accounts[0].getShares(Stock.AAPL), 5);
+        assertEquals(5, accounts[0].getShares(Stock.AAPL));
     }
 
     @Test
     public void tfsaShares() {
         accounts[1].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 5));
-        assertEquals(accounts[1].getShares(Stock.AAPL), 5);
+        assertEquals(5, accounts[1].getShares(Stock.AAPL));
     }
 
     @Test
     public void personalInsuffientFunds() {
         accounts[0].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 1000));
-        assertEquals(accounts[0].getShares(Stock.AAPL), 0);
+        assertEquals(0, accounts[0].getShares(Stock.AAPL));
     }
 
     @Test
     public void tfsaInsuffientFunds() {
         accounts[1].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 1000));
-        assertEquals(accounts[1].getShares(Stock.AAPL), 0);
+        assertEquals(0, accounts[1].getShares(Stock.AAPL));
     }
 
     @Test
     public void personalFunds() {
         accounts[0].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 5));
-        assertEquals(accounts[0].getFunds(), 1000 - 15.649286 * 5);
+        assertEquals(1000 - 15.649286 * 5, accounts[0].getFunds());
     }
 
     @Test
     public void TFSAFunds() {
         accounts[1].makeTrade(new Trade(Stock.AAPL, Type.MARKET_BUY, 15.649286, 5));
-        assertEquals(accounts[1].getFunds(), 1000 - 15.649286 * 5 - 15.649286 * 5 * TFSA.TRADE_FEE);
+        assertEquals(1000 - 15.649286 * 5 - 15.649286 * 5 * TFSA.TRADE_FEE, accounts[1].getFunds());
     }
 }

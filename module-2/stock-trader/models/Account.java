@@ -54,11 +54,12 @@ public abstract class Account {
             return false;
         }
         setFunds(this.funds - amount);
-        setShares(trade.getStock(), trade.getShares());
+        setShares(trade.getStock(), getShares(trade.getStock()) + trade.getShares());
         return true;
     }
 
     public boolean executeBuy(Trade trade) {
         return executeBuy(trade, 0);
     }
+
 }
