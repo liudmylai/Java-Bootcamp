@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import models.Trade.Stock;
+import utils.Color;
 
 public abstract class Account {
 
@@ -21,11 +22,6 @@ public abstract class Account {
 
     public Integer getShares(Stock stock) {
         return this.portfolio.get(stock);
-        // return this.portfolio.entrySet().stream()
-        //        .filter(entry -> entry.getKey().equals(stock))
-        //        .findFirst()
-        //        .orElse(null)
-        //        .getValue(); 
     }
 
     public void setShares(Stock stock, int shares) {
@@ -73,8 +69,21 @@ public abstract class Account {
         return true;
     }
 
-    public double round(double amount) {
+    private double round(double amount) {
         DecimalFormat formatter = new DecimalFormat("#.##");
         return Double.parseDouble(formatter.format(amount));
+    }
+
+    private String displayPortofolio() {
+        String string = "";
+        for(HashMap.Entry<Stock, Integer> entry : this.portfolio.entrySet()) {
+            string += "  " + Color.BLUE + entry.getKey() + "\t\t" + Color.GREEN + entry.getValue() + "\n";
+        }
+        return string;
+    }
+
+    public String toString() {
+        return "\n  Stock\t\t"  + Color.RESET + "Shares" + "\n\n" + displayPortofolio() + Color.RESET +
+        "\n  Funds Left\t" + Color.GREEN + "$" + round(this.getFunds()) + Color.RESET;
     }
 }
