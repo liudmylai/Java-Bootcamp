@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import models.Account;
+import models.*;
 import utils.Color;
 
 public class Main {
@@ -10,6 +10,12 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
   
     public static void main(String[] args) {    
+        explainApp();
+        switch(accountChoice()) {
+            case "a": account = new Personal(1000); break;
+            case "b": account = new TFSA(1000); break;
+        }
+        initialBalance();
 
       
     }
