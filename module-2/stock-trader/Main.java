@@ -1,6 +1,12 @@
+import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import models.*;
+import models.Trade.Stock;
 import utils.Color;
 
 public class Main {
@@ -17,6 +23,9 @@ public class Main {
         }
         initialBalance();
 
+        for (int day = 1; day <= 2160; day++) {
+            displayPrices(day);
+        }
       
     }
 
@@ -80,7 +89,7 @@ public class Main {
         return shares;
     }
     
-    /* TODO
+    
     public static void displayPrices(int day) {
         System.out.println("\n\n\t  DAY " + day + " PRICES\n");
         System.out.println("  " + Color.BLUE + Stock.AAPL + "\t\t" + Color.GREEN + getPrice(Stock.AAPL, day));
@@ -88,7 +97,7 @@ public class Main {
         System.out.println("  " + Color.BLUE + Stock.GOOG + "\t\t" + Color.GREEN + getPrice(Stock.GOOG, day));
         System.out.println("  " + Color.BLUE + Stock.TSLA + "\t\t" + Color.GREEN + getPrice(Stock.TSLA, day) + Color.RESET);
     }
-    */
+    
     public static void tradeStatus(String result) {
         System.out.println("\n  The trade was " + (result.equals("successful") ? Color.GREEN : Color.RED) + result + Color.RESET + ". Here is your portfolio:");
         System.out.println(account);
@@ -97,13 +106,29 @@ public class Main {
     }
     
     
-    /* TODO
     public static String getPrice(Stock stock, int day) {
-        return "15.2343";
+        try {
+            return Files.lines(getPath(stock.toString()))
+                .skip(1)
+                .map(line -> line.split(","))
+                .filter(arr -> Integer.parseInt(arr[0]) == day)
+                .map(arr -> arr[1])
+                .findFirst()
+                .orElse(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     public static Path getPath(String stock) {
-        return null;
+        try {
+            Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource("data//"+ stock +".csv").toURI());
+            return path;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+       
     }
-    */
     
 }
