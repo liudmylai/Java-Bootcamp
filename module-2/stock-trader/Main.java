@@ -1,12 +1,11 @@
 import java.io.IOException;
-import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 import models.*;
-import models.Trade.Stock;
+import models.Trade.*;
 import utils.Color;
 
 public class Main {
@@ -25,8 +24,23 @@ public class Main {
 
         for (int day = 1; day <= 2160; day++) {
             displayPrices(day);
+            String choice = buyOrSell();
+            Type type = choice.equals("buy") ? Type.MARKET_BUY : Type.MARKET_SELL;
+            Stock stock;
+            switch(chooseStock()) {
+                case "AAPL": stock = Stock.AAPL; break;
+                case "FB": stock = Stock.FB; break;
+                case "GOOG": stock = Stock.GOOG; break;
+                case "TSLA": stock = Stock.TSLA; break;
+                default: stock = null;
+            }
+            int shares = numShares(choice);
+            double price = Double.parseDouble(getPrice(stock, day)) ;
+            Trade trade = new Trade(stock, type, price, shares);
+            String result = account.makeTrade(trade) ? "successful" : "unsuccessful";
+            tradeStatus(result);
         }
-      
+
     }
 
     public static void explainApp() {
@@ -39,7 +53,7 @@ public class Main {
     
     public static void initialBalance() {
         System.out.print("\n\n  You created a " + Color.YELLOW + account.getClass().getSimpleName() + Color.RESET + " account.");
-        System.out.println(" Your account balance is " + Color.GREEN + "$" + "<account.getFunds()>" + Color.RESET);
+        System.out.println(" Your account balance is " + Color.GREEN + "$" + account.getFunds() + Color.RESET);
         System.out.print("\n  Enter anything to start trading: ");
         scanner.nextLine();
     }
