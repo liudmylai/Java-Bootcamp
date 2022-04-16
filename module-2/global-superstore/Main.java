@@ -1,4 +1,5 @@
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -36,6 +37,20 @@ public class Main {
      *   6. Returns the average as double.
      * 
      */
+    public static double average(Path path, String category) {
+        try {
+            return Files.lines(path)
+            .skip(1)
+            .map(line -> line.split(","))
+            .filter(arr -> arr[0].equals(category))
+            .mapToDouble(arr -> Double.parseDouble(arr[1]) * Double.parseDouble(arr[2]))
+            .average()
+            .getAsDouble();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 
 
 
