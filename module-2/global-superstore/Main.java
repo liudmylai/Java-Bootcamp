@@ -18,18 +18,25 @@ public class Main {
             Thread thread3 = new Thread(() -> average(path, "Technology"));
             Thread thread4 = new Thread(() -> average(path, "Office Supplies"));
             Thread thread5 = new Thread(() -> totalAverage(path));
-            
             thread2.start();
+            System.out.println(thread2.getState()); 
+            thread2.interrupt();
+
             thread3.start();
             thread4.start();
             thread5.start();
 
-            Scanner scan = new Scanner(System.in);
-            System.out.print("Please enter your name to access the Global Superstore dataset: ");
-            String name = scan.nextLine();
-            System.out.println("Access Denied. We apologize for the inconvenience. Have a good day " + name + ".");
-            scan.close();
+            Thread.sleep(10);
+            System.out.println(thread2.getState());
+
+            // Scanner scan = new Scanner(System.in);
+            // System.out.print("Please enter your name to access the Global Superstore dataset: ");
+            // String name = scan.nextLine();
+            // System.out.println("Access Denied. We apologize for the inconvenience. Have a good day " + name + ".");
+            // scan.close();
         } catch (URISyntaxException e) {
+            System.out.println(e.getMessage());
+        } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -50,6 +57,9 @@ public class Main {
      * 
      */
     public static Double average(Path path, String category) {
+        if (Thread.currentThread().isInterrupted()) {
+            return 0.0;
+        }
         try {
             return Files.lines(path)
                     .skip(1)
