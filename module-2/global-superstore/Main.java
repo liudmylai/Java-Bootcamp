@@ -10,35 +10,52 @@ public class Main {
 
     static final String SALES = "data\\sales.csv";
 
+    static double furniture = 0;
+    static double technology = 0;
+    static double supplies = 0;
+    static double average = 0;
+
+
     public static void main(String[] args) {
         
         try {
             Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(SALES).toURI());
-            Thread thread2 = new Thread(() -> average(path, "Furniture"));
-            Thread thread3 = new Thread(() -> average(path, "Technology"));
-            Thread thread4 = new Thread(() -> average(path, "Office Supplies"));
-            Thread thread5 = new Thread(() -> totalAverage(path));
+          
+            Thread thread2 = new Thread(() -> furniture = average(path, "Furniture"));
+            Thread thread3 = new Thread(() -> technology = average(path, "Technology"));
+            Thread thread4 = new Thread(() -> supplies = average(path, "Office Supplies"));
+            Thread thread5 = new Thread(() -> average = totalAverage(path));
             thread2.start();
-            System.out.println(thread2.getState()); 
-            thread2.interrupt();
-
             thread3.start();
             thread4.start();
             thread5.start();
 
-            Thread.sleep(10);
-            System.out.println(thread2.getState());
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Please enter your name to access the Global Superstore dataset: ");
+            String name = scan.nextLine();
 
-            // Scanner scan = new Scanner(System.in);
-            // System.out.print("Please enter your name to access the Global Superstore dataset: ");
-            // String name = scan.nextLine();
-            // System.out.println("Access Denied. We apologize for the inconvenience. Have a good day " + name + ".");
-            // scan.close();
+            try {
+                thread2.join();
+                thread3.join();
+                thread4.join();
+                thread5.join();
+                
+                System.out.println("\nThank you " + name + ". The average sales for Global Superstore are:\n");
+                System.out.println("Average Furniture Sales: " + furniture);
+                System.out.println("Average Technology Sales: " + technology);
+                System.out.println("Average Office Supplies Sales: " + supplies);
+                System.out.println("Total Average: " + average);
+                
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            scan.close();
+
+          
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
-        } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
-        }
+        }        
+     
     }
 
     /**
@@ -57,9 +74,6 @@ public class Main {
      * 
      */
     public static Double average(Path path, String category) {
-        if (Thread.currentThread().isInterrupted()) {
-            return 0.0;
-        }
         try {
             return Files.lines(path)
                     .skip(1)
