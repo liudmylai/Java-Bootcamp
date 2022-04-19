@@ -4,6 +4,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 
@@ -18,21 +21,33 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        int numThreads = Runtime.getRuntime().availableProcessors();
+        
         
         try {
             Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(SALES).toURI());
-            FutureTask<Double> future = new FutureTask<>(() -> average(path, "Furniture"));
-            Thread thread2 = new Thread(future);
-            FutureTask<Double> future2 = new FutureTask<>(() -> average(path, "Technology"));
-            Thread thread3 = new Thread(future2);
-            FutureTask<Double> future3 = new FutureTask<>(() -> average(path, "Office Supplies"));
-            Thread thread4 = new Thread(future3);
-            FutureTask<Double> future4 = new FutureTask<>(() -> totalAverage(path));
-            Thread thread5 = new Thread(future4);
-            thread2.start();
-            thread3.start();
-            thread4.start();
-            thread5.start();
+
+            ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+
+            Future<Double> future = executor.submit(() -> average(path, "Furniture")); 
+            Future<Double> future2 = executor.submit(() -> average(path, "Technology")); 
+            Future<Double> future3 = executor.submit(() -> average(path, "Office Supplies")); 
+            Future<Double> future4 = executor.submit(() -> totalAverage(path)); 
+
+
+            // FutureTask<Double> future = new FutureTask<>(() -> average(path, "Furniture"));
+            // Thread thread2 = new Thread(future);
+            // FutureTask<Double> future2 = new FutureTask<>(() -> average(path, "Technology"));
+            // Thread thread3 = new Thread(future2);
+            // FutureTask<Double> future3 = new FutureTask<>(() -> average(path, "Office Supplies"));
+            // Thread thread4 = new Thread(future3);
+            // FutureTask<Double> future4 = new FutureTask<>(() -> totalAverage(path));
+            // Thread thread5 = new Thread(future4);
+            // thread2.start();
+            // thread3.start();
+            // thread4.start();
+            // thread5.start();
 
             Scanner scan = new Scanner(System.in);
             System.out.print("Please enter your name to access the Global Superstore dataset: ");
@@ -47,6 +62,8 @@ public class Main {
                 technology = future2.get();
                 supplies = future3.get();
                 average = future4.get();
+
+
                 
                 System.out.println("\nThank you " + name + ". The average sales for Global Superstore are:\n");
                 System.out.println("Average Furniture Sales: " + furniture);
@@ -56,13 +73,16 @@ public class Main {
                 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            } finally {
+                executor.shutdown();
+
             }
             scan.close();
 
           
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
-        }        
+        } 
      
     }
 
