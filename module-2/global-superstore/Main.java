@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 
 public class Main {
@@ -19,13 +18,11 @@ public class Main {
     static double supplies = 0;
     static double average = 0;
 
-
     public static void main(String[] args) {
-
-        int numThreads = Runtime.getRuntime().availableProcessors();
-        
         
         try {
+            int numThreads = Runtime.getRuntime().availableProcessors();
+
             Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(SALES).toURI());
 
             ExecutorService executor = Executors.newFixedThreadPool(numThreads);
@@ -34,7 +31,6 @@ public class Main {
             Future<Double> future2 = executor.submit(() -> average(path, "Technology")); 
             Future<Double> future3 = executor.submit(() -> average(path, "Office Supplies")); 
             Future<Double> future4 = executor.submit(() -> totalAverage(path)); 
-
 
             // FutureTask<Double> future = new FutureTask<>(() -> average(path, "Furniture"));
             // Thread thread2 = new Thread(future);
@@ -63,8 +59,6 @@ public class Main {
                 supplies = future3.get();
                 average = future4.get();
 
-
-                
                 System.out.println("\nThank you " + name + ". The average sales for Global Superstore are:\n");
                 System.out.println("Average Furniture Sales: " + furniture);
                 System.out.println("Average Technology Sales: " + technology);
@@ -75,15 +69,12 @@ public class Main {
                 System.out.println(e.getMessage());
             } finally {
                 executor.shutdown();
-
             }
             scan.close();
-
           
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
         } 
-     
     }
 
     /**
