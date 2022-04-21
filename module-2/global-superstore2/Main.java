@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
  
@@ -19,9 +20,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         CountDownLatch latch = new CountDownLatch(3);
-            ExecutorService executor = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        ReentrantLock lock = new ReentrantLock();
             for (String string : files) {
-                executor.submit(() -> increment(string, latch));
+                executor.submit(() -> increment(string, latch, lock));
             }
 
         Scanner scan = new Scanner(System.in);
@@ -50,15 +52,17 @@ public class Main {
      *   2. Maps each element in the stream to a quantity value.
      *   3. Increments sampleSize and quantitySold.
      */
-    public static void increment(String file, CountDownLatch latch) {
+    public static void increment(String file, CountDownLatch latch, ReentrantLock lock) {
         try {
             Path path = Paths.get(Thread.currentThread().getContextClassLoader().getResource(file).toURI());
             Files.lines(path)
                 .skip(1)
                 .mapToInt(line -> Integer.parseInt(line.split(",")[2]))
                 .forEach(quantity -> {
+                    lock.lock();
                     sampleSize++;
                     quantitySold += quantity;
+                    lock.unlock();
                 });
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
